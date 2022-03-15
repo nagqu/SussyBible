@@ -56,6 +56,8 @@ def make_sussy(verse):
                        impostors[randint(0, len(impostors) - 1)], verse, flags=re.IGNORECASE)
         verse = re.sub(
             "Father", impostors[randint(0, len(impostors) - 1)], verse)
+        verse = re.sub(
+            "Lord", impostors[randint(0, len(impostors) - 1)], verse)
         verse = re.sub("escape", escapes[randint(
             0, len(escapes) - 1)], verse, flags=re.IGNORECASE)
         verse = re.sub("kill", kills[randint(0, len(kills) - 1)],
