@@ -3,6 +3,7 @@ from random import randint
 import tweepy
 import requests
 import re
+import time
 
 config = dotenv_values(".env")
 
@@ -67,6 +68,8 @@ def fuck():
 if __name__ == "__main__":
     try:
         api.verify_credentials()
-        fuck()
+        while True:
+            fuck()
+            time.sleep(3600)
     except tweepy.errors.Unauthorized as e:
         print(f"Auth Failed: {e}")
