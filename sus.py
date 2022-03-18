@@ -59,6 +59,8 @@ def make_sussy(verse):
                        verse)
         verse = re.sub("Kill", kills[randint(0, len(kills) - 1)].capitalize(),
                        verse)
+        verse = re.sub("true", "sus", verse)
+        verse = re.sub("True", "Sus", verse)
         status = True
     return verse, status
 
