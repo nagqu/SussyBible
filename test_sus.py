@@ -1,5 +1,5 @@
 import pytest
-from sus import make_sussy, get_verse, fuck
+from sus import make_sussy, get_verse, post_verse
 
 
 @pytest.mark.parametrize("test_input, expected_string, expected_bool",
