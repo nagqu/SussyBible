@@ -42,11 +42,11 @@ def get_verse():
 def make_sussy(verse):
     status = False
     # Regex trigger
-    if re.search("the lord|jesus|god|messiah|father|kill|escape|judas", verse, flags=re.IGNORECASE):
+    if re.search("the lord|jesus|god|messiah|father|kill|escape|judas|christ", verse, flags=re.IGNORECASE):
         logging.info(f"Regex triggered on verse: {verse}")
         verse = re.sub("Judas", "Sussy Baka", verse)
 
-        verse = re.sub("the lord|jesus|god|messiah",
+        verse = re.sub("the lord|jesus|god|messiah|christ",
                        impostors[randint(0, len(impostors) - 1)], verse, flags=re.IGNORECASE)
 
         verse = re.sub(
