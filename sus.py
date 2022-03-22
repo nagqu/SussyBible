@@ -61,6 +61,7 @@ def make_sussy(verse):
                        verse)
         verse = re.sub("true", "sus", verse)
         verse = re.sub("True", "Sus", verse)
+        verse = re.sub("among us", "among us 👀")
         status = True
     return verse, status
 
