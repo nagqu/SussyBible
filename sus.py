@@ -14,6 +14,9 @@ apiCallsTotal = 0
 
 config = dotenv_values(".env")
 
+# 1. Auth
+# 2. Post
+
 auth = tweepy.OAuth1UserHandler(
     config["API_KEY"], config["API_SECRET"],
     config["ACCESS"], config["ACCESS_SECRET"]
@@ -74,8 +77,11 @@ def post_verse():
         # Check if verse fits the tweet length
         sussy_len = len(sussy_verse)
         if status and sussy_len <= 280:
-            break
-    api.update_status(sussy_verse)
+            try:
+                api.update_status(sussy_verse)
+                break
+            except Exception as e:
+                logging.warning(f"Exception encountered: {e}")
 
     global apiCalls
     global apiCallsTotal
