@@ -74,8 +74,11 @@ def post_verse():
         # Check if verse fits the tweet length
         sussy_len = len(sussy_verse)
         if status and sussy_len <= 280:
-            break
-    api.update_status(sussy_verse)
+            try:
+                api.update_status(sussy_verse)
+            except Exception as e:
+                logging.error(f"Encountered error: {e}")
+                break
 
     global apiCalls
     global apiCallsTotal
