@@ -32,7 +32,7 @@ escapes = ["vent"]
 def get_verse():
     verse = requests.get('https://labs.bible.org/api/?passage=random')
     text = verse.text
-    text = text.replace("<b>", "").replace("</b> ", " ")
+    text = re.sub("<b>|</b>", "", text)
     global apiCalls
     apiCalls += 1
     logging.info("Verse got")
