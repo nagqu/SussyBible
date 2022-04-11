@@ -5,6 +5,8 @@ import requests
 import re
 import time
 import logging
+import os
+import binascii
 
 logging.basicConfig(filename="sussybible.log",
                     encoding="utf-8", level=logging.DEBUG)
@@ -23,6 +25,17 @@ auth = tweepy.OAuth1UserHandler(
 )
 api = tweepy.API(auth)
 
+oauth_sig = binascii.b2a_hex(os.urandom(16))
+
+url = f"""https://api.twitter.com/1.1/statuses/update.json?status=test&
+    oauth_consumer_key={config["API_KEY"]}&
+    oauth_token={config["ACCESS"]}&
+    oauth_signature_method=HMAC-SHA1&
+    oauth_timestamp=1648243590&
+    oauth_nonce=nQMNVJGlcRM&
+    oauth_version=1.0&
+    oauth_signature={oauth_sig}"""
+
 impostors = ["Amogus", "Yellow", "Red", "Crewmate", "Bean", "Crewpostor"]
 kills = ["vote out", "game end", "eject"]
 escapes = ["vent"]
@@ -35,7 +48,7 @@ escapes = ["vent"]
 def get_verse():
     verse = requests.get('https://labs.bible.org/api/?passage=random')
     text = verse.text
-    text = text.replace("<b>", "").replace("</b> ", " ")
+    text = re.sub("<b>|</b>", "", text)
     global apiCalls
     apiCalls += 1
     logging.info("Verse got")
@@ -96,10 +109,11 @@ def post_verse():
 
 
 if __name__ == "__main__":
-    try:
-        api.verify_credentials()
-        while True:
-            post_verse()
-            time.sleep(3600)
-    except tweepy.errors.Unauthorized as e:
-        print(f"Auth Failed: {e}")
+    # try:
+    #     api.verify_credentials()
+    #     while True:
+    #         post_verse()
+    #         time.sleep(3600)
+    # except tweepy.errors.Unauthorized as e:
+    #     print(f"Auth Failed: {e}")
+    print(oauth_sig)
