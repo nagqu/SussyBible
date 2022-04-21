@@ -7,6 +7,7 @@ import time
 import logging
 import os
 import binascii
+import urllib.parse
 
 logging.basicConfig(filename="sussybible.log",
                     encoding="utf-8", level=logging.DEBUG)
@@ -25,16 +26,25 @@ auth = tweepy.OAuth1UserHandler(
 )
 api = tweepy.API(auth)
 
-oauth_sig = binascii.b2a_hex(os.urandom(16))
+
+oauth_nonce = binascii.b2a_hex(os.urandom(16))
+
+
+def generate_url(method: str, url: str, params: str):
+    encoded_url = urllib.parse.quote(url.encode("utf-8"))
+    encoded_params = urllib.parse.quote(params.encode("utf-8"))
+    '&'.join(method, encoded_url, encoded_params)
+    pass
+
 
 url = f"""https://api.twitter.com/1.1/statuses/update.json?status=test&
     oauth_consumer_key={config["API_KEY"]}&
     oauth_token={config["ACCESS"]}&
     oauth_signature_method=HMAC-SHA1&
     oauth_timestamp=1648243590&
-    oauth_nonce=nQMNVJGlcRM&
+    oauth_nonce={oauth_nonce}&
     oauth_version=1.0&
-    oauth_signature={oauth_sig}"""
+    oauth_signature=later"""
 
 impostors = ["Amogus", "Yellow", "Red", "Crewmate", "Bean", "Crewpostor"]
 kills = ["vote out", "game end", "eject"]
@@ -116,4 +126,4 @@ if __name__ == "__main__":
     #         time.sleep(3600)
     # except tweepy.errors.Unauthorized as e:
     #     print(f"Auth Failed: {e}")
-    print(oauth_sig)
+    print(oauth_nonce)
