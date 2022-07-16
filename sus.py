@@ -44,11 +44,8 @@ def make_sussy(verse):
         logging.info(f"Regex triggered on verse: {verse}")
         verse = re.sub("Judas", "Sussy Baka", verse)
 
-        verse = re.sub("the lord|jesus|god|messiah|christ",
+        verse = re.sub("the lord|jesus|god|messiah|christ|lord|father",
                        impostors[randint(0, len(impostors) - 1)], verse, flags=re.IGNORECASE)
-
-        verse = re.sub(
-            "Father|Lord|father", impostors[randint(0, len(impostors) - 1)].capitalize(), verse)
 
         verse = re.sub("escape", escapes[randint(
             0, len(escapes) - 1)], verse, flags=re.IGNORECASE)
@@ -60,6 +57,7 @@ def make_sussy(verse):
         verse = re.sub("true", "sus", verse)
         verse = re.sub("True", "Sus", verse)
         verse = re.sub("among us", "among us 👀", verse)
+        verse = re.sub("Among us", "Among us 👀", verse)
         status = True
     return verse, status
 
@@ -68,16 +66,13 @@ def post_verse():
     sussy_verse, status = make_sussy(get_verse())
     while not status:
         sussy_verse, status = make_sussy(get_verse())
-
         # Check if verse fits the tweet length
         sussy_len = len(sussy_verse)
         if status and sussy_len <= 280:
             try:
                 verse_enc = urllib.parse.quote(sussy_verse, safe='')
                 url = f"https://api.twitter.com/1.1/statuses/update.json?status={verse_enc}"
-                print(url)
                 _ = requests.post(url, auth=oauth_header)
-                print(_.status_code)
                 break
             except Exception as e:
                 logging.warning(f"Exception encountered: {e}")
@@ -89,8 +84,9 @@ def post_verse():
     logging.info("Found verse that fits and is changed")
     logging.info(f"Posted on {time.ctime(time.time())}")
     logging.info(f"Tweet content: {sussy_verse}")
-    logging.info(f"API calls until tweet got: {apiCalls}")
-    logging.info(f"Total API calls since script was started: {apiCallsTotal}")
+    logging.info(f"Verse API calls until tweet got: {apiCalls}")
+    logging.info(
+        f"Total verse API calls since script was started: {apiCallsTotal}")
     apiCalls = 0
 
 
