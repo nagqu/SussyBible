@@ -5,7 +5,6 @@ it decided to ruin ever god mention in the bible and post it to twitter every ho
 
 # Requirements
 - Python 3.9+
-- tweepy
 - requests
 - python-dotenv
 - logging
