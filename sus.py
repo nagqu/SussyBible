@@ -77,6 +77,7 @@ def post_verse():
             except Exception as e:
                 logging.warning(f"Exception encountered: {e}")
 
+
     global apiCalls
     global apiCallsTotal
     apiCallsTotal += apiCalls
