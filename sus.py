@@ -77,7 +77,6 @@ def post_verse():
             except Exception as e:
                 logging.warning(f"Exception encountered: {e}")
 
-
     global apiCalls
     global apiCallsTotal
     apiCallsTotal += apiCalls
@@ -92,5 +91,6 @@ def post_verse():
 
 
 if __name__ == "__main__":
-    post_verse()
-    time.sleep(3600)
+    while True:
+        post_verse()
+        time.sleep(3600)
